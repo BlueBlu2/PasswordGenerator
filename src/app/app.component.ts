@@ -30,12 +30,28 @@ export class AppComponent {
     !isNaN(pValue) ? this.length = pValue : this.length = 0;
   }
 
+  validCharBoolGenerator() {
+    let validCharacters = '';
+    if(this.includeLetters){
+      validCharacters += 'abcdefghijklmnopqrstuvwxyz';
+    }
+    if(this.includeNumbers){
+      validCharacters += '0123456789';
+    }
+    if(this.includeSymbols){
+      validCharacters += '!@#$%^&*()';
+    }
+    return validCharacters;
+  }
+
   onButtonClick() {
-    this.password = 'My Password';
-    console.log(this.includeLetters);
-    console.log(this.includeNumbers);
-    console.log(this.includeSymbols);
-    console.log(this.length);
+    let validCharacters = this.validCharBoolGenerator();
+    let password = '';
+    for(let i = 0; i < this.length; i++){
+      let index = Math.floor(Math.random() * validCharacters.length);
+      password += validCharacters[index];
+    }
+    this.password = password;
 
   }
 }
